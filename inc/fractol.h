@@ -3,9 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include "../my_stdlib/header/my_stdlib.h"
-// #include "../src/init.c"
-// #include "../src/fract.c"
-// #include "../src/main.c"
 
 #define TRUE 1
 #define WINDOW_WiDTH 750
