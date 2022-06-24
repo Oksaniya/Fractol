@@ -5,10 +5,18 @@ int main(void)
     t_mystruct      mystruct;
     t_pixel         pixel;
 
+    // initializing SDL2, creating window, creating window surface
     init(&mystruct);
-    pix_colour(&pixel);
-    surface(&mystruct, &pixel);
 
+    // choosing colour of pixel
+    pix_colour(&pixel);
+
+    // displaying some pixels on window surface
+    //surface(&mystruct, &pixel);
+
+    mandelbrot(mystruct.my_window, mystruct.surface, &pixel);
+
+    //making window still on screen untill pressing on "close" button
     while (TRUE)
     {
         if (SDL_PollEvent(&(mystruct.window_event)))
@@ -20,8 +28,8 @@ int main(void)
         }
     }
 
-    SDL_DestroyWindow(mystruct.my_window);
-    SDL_Quit ();
+    //SDL_DestroyWindow(mystruct.my_window);
+    //SDL_Quit ();
     return EXIT_SUCCESS;
 }
 

@@ -13,7 +13,7 @@ void init(t_mystruct *mystruct)
     mystruct->my_window = SDL_CreateWindow(mystruct->window_name, 
                                 SDL_WINDOWPOS_CENTERED, 
                                 SDL_WINDOWPOS_CENTERED, 
-                                WINDOW_WiDTH, 
+                                WINDOW_WIDTH, 
                                 WINDOW_HEIGHT, 
                                 SDL_WINDOW_ALLOW_HIGHDPI);
 
