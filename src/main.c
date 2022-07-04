@@ -84,4 +84,4 @@ void *coord_calc(void *my_s)
 //clang -c src/main.c -o obj/main.o -F/Library/Frameworks
 //clang obj/main.o -o fractol -F/Library/Frameworks -framework SDL2
 
-//time = 1.726272 - no threads
+//time = 1.726272 - no threads 
