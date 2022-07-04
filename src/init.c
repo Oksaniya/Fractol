@@ -3,6 +3,7 @@
 void init(t_mystruct *mystruct)
 {
     mystruct->my_window = NULL;
+    mystruct->pix_num = (WINDOW_HEIGHT * WINDOW_WIDTH * 4);
     
     ft_strcpy(mystruct->window_name, "my_window");
     if (SDL_Init(SDL_INIT_VIDEO) != 0)

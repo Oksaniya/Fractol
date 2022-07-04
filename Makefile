@@ -1,6 +1,6 @@
 NAME = FRACTOL
 
-CC = clang
+CC = clang 
 FLAG = -glldb -g3
 INC = -I ./inc -I ./my_stdlib/header
 LIB = ./my_stdlib/my_stdlib.a
@@ -14,7 +14,7 @@ all: obj
 	obj/render.o \
 	obj/init.o \
 	obj/mandelbrot.o \
-	 -o $(NAME) -glldb -fsanitize=address -g3 $(LIB) $(FRAMEWORK_PATH) $(FRAMEWORK)
+	 -o $(NAME) -glldb -fsanitize=address -g3 $(LIB) $(FRAMEWORK_PATH) $(FRAMEWORK) -lpthread
 	@echo "\033[0;32mFactorial compiled : \033[0m\033[31m$(NAME)\033[0m"	
 
 obj:
