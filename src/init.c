@@ -3,7 +3,10 @@
 void init(t_mystruct *mystruct)
 {
     mystruct->my_window = NULL;
-    mystruct->pix_num = (WINDOW_HEIGHT * WINDOW_WIDTH * 4);
+    mystruct->pix_num = (WINDOW_HEIGHT * WINDOW_WIDTH);
+    mystruct->mouse_x = 0;
+    mystruct->mouse_y = 0;
+    mystruct->Mouse_pos = 0;
     
     ft_strcpy(mystruct->window_name, "my_window");
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -31,14 +34,6 @@ void init(t_mystruct *mystruct)
     SDL_memset(mystruct->surface->pixels, 0, mystruct->surface->h * mystruct->surface->pitch);
     SDL_UnlockSurface(mystruct->surface);
     SDL_UpdateWindowSurface(mystruct->my_window);
-}
-
-void pix_colour(t_pixel *pixel)
-{
-    pixel->channel[RED] = 0xff;
-    pixel->channel[GREEN] = 0xff;
-    pixel->channel[BLUE] = 0xff;
-    pixel->channel[OPACITY] = 0xff;
 }
 
 void surface(t_mystruct *mystruct, t_pixel *pixel)

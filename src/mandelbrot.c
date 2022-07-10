@@ -1,9 +1,9 @@
 #include "../inc/fractol.h"
 
-void mandelbrot(SDL_Surface *surface, int Px, int Py)
+void mandelbrot(t_mystruct *mystruct, int Px, int Py)
 {
-    float x0, y0, x, y, xtemp;
-    int i, e;
+    float   x0, y0, x, y, xtemp;
+    int     i, e;
     t_pixel p;
     uint8_t color_scale;
 
@@ -18,9 +18,6 @@ void mandelbrot(SDL_Surface *surface, int Px, int Py)
     y0 = (float)Py * ((1.12f + 1.12f) / (float)WINDOW_HEIGHT) - 1.12f;
     // x0 = 1.5f * (float)(Px - 375) / 750 - 0.7;
     // y0 = (float)(Py - 250) / 500;
-    i = 0;
-    x = 0.0f;
-    y = 0.0f;
     //printf("x0 = %f\ty0 = %f\n\n", x0, y0);
     while (((x * x) + (y * y) <= 4) && (i < MAX_ITER))
     {
@@ -35,14 +32,16 @@ void mandelbrot(SDL_Surface *surface, int Px, int Py)
     if (i < MAX_ITER)
     {
         color_scale = 255 * (((float)i / (float)MAX_ITER) * 10);
-        p.channel[RED] = color_scale + 110;
-        p.channel[GREEN] = color_scale + 20;
-        p.channel[BLUE] = color_scale + 10;
+        p.channel[RED] = color_scale + 20;
+        p.channel[GREEN] = color_scale + 40;
+        p.channel[BLUE] = color_scale + 80;
         // p.color = (uint32_t)((float)0xffffffff * (((float)i / (float)MAX_ITER)));
     }
     else
     {
         p.color = 0x00000000;
     }
-    set_pixel(surface, Px, Py, p);
+    
+
+    set_pixel(mystruct->surface, Px, Py, p);
 }

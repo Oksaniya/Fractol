@@ -37,14 +37,17 @@ typedef struct      s_mystruct
     int             numCPU;
     int             pix_num;
     int             iterator;
+    int             mouse_x;
+    int             mouse_y;
+    Uint32          Mouse_pos;
 }                   t_mystruct;
 
 void set_pixel(SDL_Surface *surface, int x, int y, t_pixel pixel);
 void init(t_mystruct *mystruct);
-void pix_colour(t_pixel *pixel);
 void surface(t_mystruct *mystruct, t_pixel *pixel);
-void mandelbrot(SDL_Surface *surface, int Px, int Py);
+void mandelbrot(t_mystruct *mystruct, int Px, int Py);
 void *coord_calc(void *my_s);
-
+void julia(t_mystruct *mystruct, int Px, int Py);
+void zoom(int button, int state, int x, int y);
 
 #endif 
