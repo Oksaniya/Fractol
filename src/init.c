@@ -39,9 +39,9 @@ void init(t_mystruct *mystruct)
 void surface(t_mystruct *mystruct, t_pixel *pixel)
 {
     SDL_LockSurface(mystruct->surface);
-    for (int x = 300; x < 450; x++)
+    for (int64_t x = 300; x < 450; x++)
     {
-        for (int y = 175; y < 325; y++)
+        for (int64_t y = 175; y < 325; y++)
         {
             set_pixel(mystruct->surface, x, y, *pixel);
         }

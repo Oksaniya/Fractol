@@ -3,7 +3,7 @@
 void mandelbrot(t_mystruct *mystruct, int Px, int Py)
 {
     float   x0, y0, x, y, xtemp;
-    int     i, e;
+    int64_t     i, e;
     t_pixel p;
     uint8_t color_scale;
 
@@ -11,6 +11,7 @@ void mandelbrot(t_mystruct *mystruct, int Px, int Py)
     y0 = 0.0f;
     x = 0.0f;
     y = 0.0f;
+    xtemp = 0.0f;
     i = 0;
     e = 0;
 
@@ -41,7 +42,5 @@ void mandelbrot(t_mystruct *mystruct, int Px, int Py)
     {
         p.color = 0x00000000;
     }
-    
-
     set_pixel(mystruct->surface, Px, Py, p);
 }

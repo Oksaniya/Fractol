@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdint.h>
 #include "../my_stdlib/header/my_stdlib.h"
 
 #define TRUE 1
@@ -20,7 +21,7 @@
 
 #define MAX_ITER 1000
 
-#define MULTITHREAD
+//#define MULTITHREAD
 
 typedef union   s_pixel
 { 
@@ -40,6 +41,7 @@ typedef struct      s_mystruct
     int             mouse_x;
     int             mouse_y;
     Uint32          Mouse_pos;
+    int             fract_change;
 }                   t_mystruct;
 
 void set_pixel(SDL_Surface *surface, int x, int y, t_pixel pixel);

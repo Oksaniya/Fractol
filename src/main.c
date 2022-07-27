@@ -1,6 +1,6 @@
 #include "../inc/fractol.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_mystruct      mystruct;
     pthread_t       *thread_id;
@@ -8,12 +8,29 @@ int main(void)
     clock_t         begin;
     clock_t         end;
 
-    int mouse_x_prev, mouse_y_prev;
+    int_fast64_t mouse_x_prev, mouse_y_prev;
+    char Julia[] = "julia";
+    char Mandelbrot[] = "mandelbrot";
+    int_fast64_t zero = 0;
     
     mouse_x_prev = 0;
     mouse_y_prev = 0;
     // clock init
     begin = clock();
+
+    if (ft_strcmp(argv[1], Mandelbrot) == 0)
+    {
+        mystruct.fract_change = 0;
+    }
+    else if (ft_strcmp(argv[1], Julia) == 0)
+    {
+        mystruct.fract_change = 1;
+    }
+    else
+    {
+        printf("Pleace enter the name of fractal: %s or %s. \n", Julia, Mandelbrot);
+        return EXIT_FAILURE;
+    }
 
     mystruct.numCPU = sysconf(_SC_NPROCESSORS_ONLN);
     thread_id = (pthread_t *)malloc(sizeof(pthread_t) * mystruct.numCPU);
@@ -45,9 +62,10 @@ int main(void)
     end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("time = %f \n", time_spent);
-    
+
     SDL_UpdateWindowSurface(mystruct.my_window);
     //making window still on screen untill pressing on "close" button
+
     while (TRUE)
     {
         mystruct.Mouse_pos = SDL_GetMouseState(&mystruct.mouse_x, &mystruct.mouse_y);
@@ -91,21 +109,31 @@ int main(void)
 
 void *coord_calc(void *my_s)
 {
-    int Px;
-    int Py;
-    int i;
-    int increment;
+    int64_t Px;
+    int64_t Py;
+    int32_t i;
+    int64_t increment;
     t_mystruct *mystruct;
 
     mystruct = my_s;
-    i = mystruct->iterator;
+    i = mystruct->iterator * (WINDOW_WIDTH * WINDOW_HEIGHT / mystruct->numCPU);
     increment = mystruct->numCPU;
     while (i < mystruct->pix_num)
     {
         Py = i / WINDOW_WIDTH;
         Px = i % WINDOW_WIDTH;
-        //mandelbrot(mystruct, Px, Py);
-        julia(mystruct, Px, Py);
+
+        switch (mystruct->fract_change)
+        {
+        case 0:
+            mandelbrot(mystruct, Px, Py);
+            break;
+        case 1:
+            julia(mystruct, Px, Py);
+        default:
+            break;
+        }
+
         i += increment;
     }
     return NULL;

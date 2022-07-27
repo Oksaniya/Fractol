@@ -1,7 +1,7 @@
 NAME = FRACTOL
 
 CC = clang 
-FLAG = -glldb -g3
+FLAG = -glldb -g3 -fsanitize=address #-O3
 INC = -I ./inc -I ./my_stdlib/header
 LIB = ./my_stdlib/my_stdlib.a
 LIBDIR = ./my_stdlib
@@ -15,7 +15,8 @@ all: obj
 	obj/init.o \
 	obj/mandelbrot.o \
 	obj/julia.o \
-	 -o $(NAME) -glldb -fsanitize=address -g3 $(LIB) $(FRAMEWORK_PATH) $(FRAMEWORK) -lpthread
+	obj/zoom.o \
+	 -o $(NAME) $(FLAG) $(LIB) $(FRAMEWORK_PATH) $(FRAMEWORK) -lpthread
 	@echo "\033[0;32mFactorial compiled : \033[0m\033[31m$(NAME)\033[0m"	
 
 obj:
@@ -25,6 +26,7 @@ obj:
 	$(CC) $(FLAG) -c src/init.c -o obj/init.o $(INC) $(FRAMEWORK_PATH)
 	$(CC) $(FLAG) -c src/mandelbrot.c -o obj/mandelbrot.o $(INC) $(FRAMEWORK_PATH)
 	$(CC) $(FLAG) -c src/julia.c -o obj/julia.o $(INC) $(FRAMEWORK_PATH)
+	$(CC) $(FLAG) -c src/zoom.c -o obj/zoom.o $(INC) $(FRAMEWORK_PATH)
 
 clean:
 	rm -fr obj/*.o
@@ -36,7 +38,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME)
+	./$(NAME) mandelbrot
 
 debug: re
-	lldb -- ./$(NAME)
+	lldb -- ./$(NAME) mandelbrot

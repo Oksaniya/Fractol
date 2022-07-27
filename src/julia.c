@@ -3,7 +3,7 @@
 void julia(t_mystruct *mystruct, int Px, int Py)
 {
     float       x0, y0, x, y, xtemp, R;
-    int         i;
+    uint64_t    i;
     t_pixel     p;
     uint8_t     color_scale;
     float       color_scale_f;
@@ -14,6 +14,7 @@ void julia(t_mystruct *mystruct, int Px, int Py)
     x = -0.4f;
     y = 0.6f;
     i = 0;
+    color_scale_f = 0.0f;
 
     // choose R > 0 such that R**2 - R >= sqrt(cx**2 + cy**2)
 
