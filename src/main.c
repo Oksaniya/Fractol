@@ -109,12 +109,14 @@ int main(int argc, char **argv)
 
 void *coord_calc(void *my_s)
 {
-    int64_t Px;
-    int64_t Py;
+    float Px;
+    float Py;
     int32_t i;
     int64_t increment;
     t_mystruct *mystruct;
 
+    Px = 0.0f;
+    Py = 0.0f;
     mystruct = my_s;
     i = mystruct->iterator * (WINDOW_WIDTH * WINDOW_HEIGHT / mystruct->numCPU);
     increment = mystruct->numCPU;

@@ -38,7 +38,7 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) mandelbrot
+	./$(NAME) julia
 
 debug: re
 	lldb -- ./$(NAME) mandelbrot
