@@ -1,8 +1,8 @@
 #include "../inc/fractol.h"
 
-void init(t_mystruct *mystruct)
+void init(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
 {
-    mystruct->my_window = NULL;
+    SDL_struct->my_window = NULL;
     mystruct->pix_num = (WINDOW_HEIGHT * WINDOW_WIDTH);
     mystruct->mouse_x = 0;
     mystruct->mouse_y = 0;
@@ -14,39 +14,39 @@ void init(t_mystruct *mystruct)
         fprintf(stderr, "could not initialize sdl2: %s\n", SDL_GetError());
         exit(1);
     }
-    mystruct->my_window = SDL_CreateWindow(mystruct->window_name, 
+    SDL_struct->my_window = SDL_CreateWindow(mystruct->window_name, 
                                 SDL_WINDOWPOS_CENTERED, 
                                 SDL_WINDOWPOS_CENTERED, 
                                 WINDOW_WIDTH, 
                                 WINDOW_HEIGHT, 
                                 SDL_WINDOW_ALLOW_HIGHDPI);
 
-    if (mystruct->my_window == NULL)
+    if (SDL_struct->my_window == NULL)
     {
         fprintf(stderr, "could not create a window: %s\n", SDL_GetError());
         exit(1);
     }
-    mystruct->surface = NULL;
-    mystruct->surface = SDL_GetWindowSurface(mystruct->my_window);
+    SDL_struct->surface = NULL;
+    SDL_struct->surface = SDL_GetWindowSurface(SDL_struct->my_window);
 
     /* init surface with 0 */
-    SDL_LockSurface(mystruct->surface);
-    SDL_memset(mystruct->surface->pixels, 0, mystruct->surface->h * mystruct->surface->pitch);
-    SDL_UnlockSurface(mystruct->surface);
-    SDL_UpdateWindowSurface(mystruct->my_window);
+    SDL_LockSurface(SDL_struct->surface);
+    SDL_memset(SDL_struct->surface->pixels, 0, SDL_struct->surface->h * SDL_struct->surface->pitch);
+    SDL_UnlockSurface(SDL_struct->surface);
+    SDL_UpdateWindowSurface(SDL_struct->my_window);
 }
 
-void surface(t_mystruct *mystruct, t_pixel *pixel)
+void surface(t_mystruct *mystruct, t_pixel *pixel, t_SDL_struct *SDL_struct)
 {
-    SDL_LockSurface(mystruct->surface);
+    SDL_LockSurface(SDL_struct->surface);
     for (int64_t x = 300; x < 450; x++)
     {
         for (int64_t y = 175; y < 325; y++)
         {
-            set_pixel(mystruct->surface, x, y, *pixel);
+            set_pixel(SDL_struct->surface, x, y, *pixel);
         }
     }
-    SDL_UnlockSurface(mystruct->surface);
-    SDL_UpdateWindowSurface(mystruct->my_window);
+    SDL_UnlockSurface(SDL_struct->surface);
+    SDL_UpdateWindowSurface(SDL_struct->my_window);
     
 }

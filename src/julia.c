@@ -1,6 +1,6 @@
 #include "../inc/fractol.h"
 
-void julia(t_mystruct *mystruct, int Px, int Py)
+void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
 {
     float       x0, y0, x, y, xtemp, R;
     uint64_t    i;
@@ -69,5 +69,5 @@ void julia(t_mystruct *mystruct, int Px, int Py)
     // {
     //     p.color = 0x00000000;
     // }
-    set_pixel(mystruct->surface, Px, Py, p);
+    set_pixel(SDL_struct->surface, Px, Py, p);
 }

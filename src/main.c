@@ -2,6 +2,7 @@
 
 int main(int argc, char **argv)
 {
+    t_SDL_struct    SDL_struct;
     t_mystruct      mystruct;
     pthread_t       *thread_id;
 
@@ -37,13 +38,13 @@ int main(int argc, char **argv)
     //printf("Number of free cores are: %d \n", mystruct.numCPU);
 
     // initializing SDL2, creating window, creating window surface
-    init(&mystruct);
+    init(&mystruct, &SDL_struct);
 
     // calculating pixel coordinates from index and call fractol function
 #ifndef MULTITHREAD
     mystruct.numCPU = 1;
     mystruct.iterator = 0;
-    coord_calc((void *)&mystruct);
+    coord_calc((void *)&mystruct, SDL_struct);
 
 #else
     for (int i = 0; i < mystruct.numCPU; i++) 
@@ -63,7 +64,7 @@ int main(int argc, char **argv)
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("time = %f \n", time_spent);
 
-    SDL_UpdateWindowSurface(mystruct.my_window);
+    SDL_UpdateWindowSurface(SDL_struct.my_window);
     //making window still on screen untill pressing on "close" button
 
     while (TRUE)
@@ -75,7 +76,7 @@ int main(int argc, char **argv)
 #ifndef MULTITHREAD
             mystruct.numCPU = 1;
             mystruct.iterator = 0;
-            coord_calc((void *)&mystruct);
+            coord_calc((void *)&mystruct, SDL_struct);
 
 #else
             for (int i = 0; i < mystruct.numCPU; i++) 
@@ -89,25 +90,25 @@ int main(int argc, char **argv)
                 pthread_join(thread_id[i], NULL);
             }
 #endif
-            SDL_UpdateWindowSurface(mystruct.my_window);
+            SDL_UpdateWindowSurface(SDL_struct.my_window);
             mouse_x_prev = mystruct.mouse_x;
             mouse_y_prev = mystruct.mouse_y;
             //printf("Mouse_pos = %u\tmouse_x = %d\tmouse_y = %d\n", mystruct.Mouse_pos, mystruct.mouse_x, mystruct.mouse_y);
         }
-        if (SDL_PollEvent(&(mystruct.window_event)))
+        if (SDL_PollEvent(&(SDL_struct.window_event)))
         {
-            if (SDL_QUIT == mystruct.window_event.type)
+            if (SDL_QUIT == SDL_struct.window_event.type)
             {
                 break ;
             }
         }
     }
-    //SDL_DestroyWindow(mystruct.my_window);
+    //SDL_DestroyWindow(SDL_struct.my_window);
     //SDL_Quit ();
     return EXIT_SUCCESS;
 }
 
-void *coord_calc(void *my_s)
+void *coord_calc(void *my_s, t_SDL_struct SDL_struct)
 {
     float Px;
     float Py;
@@ -128,10 +129,10 @@ void *coord_calc(void *my_s)
         switch (mystruct->fract_change)
         {
         case 0:
-            mandelbrot(mystruct, Px, Py);
+            mandelbrot(mystruct, &SDL_struct, Px, Py);
             break;
         case 1:
-            julia(mystruct, Px, Py);
+            julia(mystruct, &SDL_struct, Px, Py);
         default:
             break;
         }
