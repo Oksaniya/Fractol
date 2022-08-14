@@ -1,6 +1,6 @@
 #include "../inc/fractol.h"
 
-void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
+void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
 {
     float       x0, y0, x, y, xtemp, R;
     uint64_t    i;
@@ -18,8 +18,8 @@ void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
 
     // choose R > 0 such that R**2 - R >= sqrt(cx**2 + cy**2)
 
-    x0 = (float)Px * ((R + R) / (float)WINDOW_WIDTH) - 2.0f;
-    y0 = (float)Py * ((R + R) / (float)WINDOW_HEIGHT) - 1.12f;
+    x0 = (float)mystruct->Px * ((R + R) / (float)WINDOW_WIDTH) - 2.0f;
+    y0 = (float)mystruct->Py * ((R + R) / (float)WINDOW_HEIGHT) - 1.12f;
    // printf("Mouse pos x = %d, \n", mystruct->mouse_x);
     if (((R * R - R) * (R * R - R) < x * x + y * y) || (R < 0))
     {
@@ -69,5 +69,5 @@ void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
     // {
     //     p.color = 0x00000000;
     // }
-    set_pixel(SDL_struct->surface, Px, Py, p);
+    set_pixel(SDL_struct->surface, mystruct->Px, mystruct->Py, p);
 }

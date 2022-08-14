@@ -110,29 +110,28 @@ int main(int argc, char **argv)
 
 void *coord_calc(void *my_s, t_SDL_struct SDL_struct)
 {
-    float Px;
-    float Py;
     int32_t i;
     int64_t increment;
     t_mystruct *mystruct;
 
-    Px = 0.0f;
-    Py = 0.0f;
+    mystruct = my_s;
+    mystruct->Px = 0.0f;
+    mystruct->Py = 0.0f;
     mystruct = my_s;
     i = mystruct->iterator * (WINDOW_WIDTH * WINDOW_HEIGHT / mystruct->numCPU);
     increment = mystruct->numCPU;
     while (i < mystruct->pix_num)
     {
-        Py = i / WINDOW_WIDTH;
-        Px = i % WINDOW_WIDTH;
+        mystruct->Py = i / WINDOW_WIDTH;
+        mystruct->Px = i % WINDOW_WIDTH;
 
         switch (mystruct->fract_change)
         {
         case 0:
-            mandelbrot(mystruct, &SDL_struct, Px, Py);
+            mandelbrot(mystruct, &SDL_struct);
             break;
         case 1:
-            julia(mystruct, &SDL_struct, Px, Py);
+            julia(mystruct, &SDL_struct);
         default:
             break;
         }

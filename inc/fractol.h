@@ -52,14 +52,16 @@ typedef struct      s_mystruct
     int             mouse_y;
     Uint32          Mouse_pos;
     uint64_t        fract_change;
+    float           Px;
+    float           Py;
 }                   t_mystruct;
 
 void set_pixel(SDL_Surface *surface, int x, int y, t_pixel pixel);
 void init(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void surface(t_mystruct *mystruct, t_pixel *pixel, t_SDL_struct *SDL_struct);
-void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py);
+void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void *coord_calc(void *my_s, t_SDL_struct SDL_struct);
-void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py);
+void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void zoom(int button, int state, int x, int y);
 
 #endif 

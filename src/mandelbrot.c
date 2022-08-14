@@ -1,6 +1,6 @@
 #include "../inc/fractol.h"
 
-void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
+void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
 {
     float   x0, y0, x, y, xtemp;
     int64_t     i, e;
@@ -15,8 +15,8 @@ void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
     i = 0;
     e = 0;
 
-    x0 = (float)Px * ((2.00f + 0.47f) / (float)WINDOW_WIDTH) - 2.0f;
-    y0 = (float)Py * ((1.12f + 1.12f) / (float)WINDOW_HEIGHT) - 1.12f;
+    x0 = (float)mystruct->Px * ((2.00f + 0.47f) / (float)WINDOW_WIDTH) - 2.0f;
+    y0 = (float)mystruct->Py * ((1.12f + 1.12f) / (float)WINDOW_HEIGHT) - 1.12f;
     // x0 = 1.5f * (float)(Px - 375) / 750 - 0.7;
     // y0 = (float)(Py - 250) / 500;
     //printf("x0 = %f\ty0 = %f\n\n", x0, y0);
@@ -42,5 +42,5 @@ void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct, int Px, int Py)
     {
         p.color = 0x00000000;
     }
-    set_pixel(SDL_struct->surface, Px, Py, p);
+    set_pixel(SDL_struct->surface, mystruct->Px, mystruct->Py, p);
 }
