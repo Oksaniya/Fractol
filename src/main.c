@@ -41,13 +41,7 @@ int main(int argc, char **argv)
     thread_id = (pthread_t *)malloc(sizeof(pthread_t) * mystruct.numCPU);
 
     // calculating pixel coordinates from index and call fractol function
-#ifndef MULTITHREAD
-    if_no_multithr(&mystruct, *thread_id);
-
-#else
-   if_multithr(&mystruct, thread_id);
-    
-#endif
+    PIX_SET();
 
     // time calculation
     end = clock();
@@ -63,12 +57,8 @@ int main(int argc, char **argv)
         //printf(" (!!!) Mouse_pos = %u\tmouse_x = %d\tmouse_y = %d\n", mystruct.Mouse_pos, mystruct.mouse_x, mystruct.mouse_y);
         if (mystruct.mouse_x != mouse_x_prev || mystruct.mouse_y != mouse_y_prev)
         {
-#ifndef MULTITHREAD
-            if_no_multithr(&mystruct, *thread_id);
+            PIX_SET();
 
-#else
-            if_multithr(&mystruct, thread_id);
-#endif
             SDL_UpdateWindowSurface(mystruct.SDL_data.my_window);
             mouse_x_prev = mystruct.mouse_x;
             mouse_y_prev = mystruct.mouse_y;

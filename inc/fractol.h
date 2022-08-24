@@ -16,6 +16,14 @@
 //#define MULTITHREAD
 
 
+#ifndef MULTITHREAD
+#define PIX_SET() if_no_multithr(&mystruct, thread_id)
+#else
+#define PIX_SET() if_multithr(&mystruct, thread_id)
+#endif
+
+
+
 enum window_size
 {
     WINDOW_WIDTH = 800,
