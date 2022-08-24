@@ -15,6 +15,7 @@
 
 //#define MULTITHREAD
 
+
 enum window_size
 {
     WINDOW_WIDTH = 800,
@@ -64,5 +65,7 @@ void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void *coord_calc(void *my_s);
 void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void zoom(int button, int state, int x, int y);
+void if_multithr(t_mystruct *mystruct, pthread_t *thread_id);
+void if_no_multithr(t_mystruct *mystruct, pthread_t thread_id);
 
 #endif 
