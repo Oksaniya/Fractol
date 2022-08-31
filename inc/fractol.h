@@ -55,17 +55,17 @@ typedef struct      s_SDL_struct
 }                   t_SDL_struct;
 
 typedef struct      s_mystruct
-{ 
-    char            window_name[10];
+{
+    Uint32          Mouse_pos;
+    int             mouse_x;
+    int             mouse_y;
+    float           Px;
+    float           Py;
     uint64_t        numCPU;
     uint64_t        pix_num;
     uint64_t        iterator;
-    int             mouse_x;
-    int             mouse_y;
-    Uint32          Mouse_pos;
     uint64_t        fract_change;
-    float           Px;
-    float           Py;
+    char            window_name[10];
     t_SDL_struct    SDL_data;
 }                   t_mystruct;
 
