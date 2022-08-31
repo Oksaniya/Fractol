@@ -1,5 +1,10 @@
 #include "../inc/fractol.h"
 
+void time_init(void)
+{
+    
+}
+
 void init(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
 {
     SDL_struct->my_window = NULL;

@@ -15,7 +15,6 @@ int main(int argc, char **argv)
     
     mouse_x_prev = 0;
     mouse_y_prev = 0;
-    // clock init
     begin = clock();
 
     if (ft_strcmp(argv[1], Mandelbrot) == 0)

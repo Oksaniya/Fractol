@@ -16,6 +16,7 @@ all: obj
 	obj/mandelbrot.o \
 	obj/julia.o \
 	obj/zoom.o \
+	obj/additional_fn.o \
 	 -o $(NAME) $(FLAG) $(LIB) $(FRAMEWORK_PATH) $(FRAMEWORK) -lpthread
 	@echo "\033[0;32mFactorial compiled : \033[0m\033[31m$(NAME)\033[0m"	
 
@@ -27,6 +28,7 @@ obj:
 	$(CC) $(FLAG) -c src/mandelbrot.c -o obj/mandelbrot.o $(INC) $(FRAMEWORK_PATH)
 	$(CC) $(FLAG) -c src/julia.c -o obj/julia.o $(INC) $(FRAMEWORK_PATH)
 	$(CC) $(FLAG) -c src/zoom.c -o obj/zoom.o $(INC) $(FRAMEWORK_PATH)
+	$(CC) $(FLAG) -c src/additional_fn.c -o obj/additional_fn.o $(INC) $(FRAMEWORK_PATH)
 
 clean:
 	rm -fr obj/*.o
