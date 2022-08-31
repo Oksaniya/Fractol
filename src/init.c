@@ -1,10 +1,5 @@
 #include "../inc/fractol.h"
 
-void time_init(void)
-{
-    
-}
-
 void init(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
 {
     SDL_struct->my_window = NULL;
@@ -39,19 +34,4 @@ void init(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
     SDL_memset(SDL_struct->surface->pixels, 0, SDL_struct->surface->h * SDL_struct->surface->pitch);
     SDL_UnlockSurface(SDL_struct->surface);
     SDL_UpdateWindowSurface(SDL_struct->my_window);
-}
-
-void surface(t_mystruct *mystruct, t_pixel *pixel, t_SDL_struct *SDL_struct)
-{
-    SDL_LockSurface(SDL_struct->surface);
-    for (int64_t x = 300; x < 450; x++)
-    {
-        for (int64_t y = 175; y < 325; y++)
-        {
-            set_pixel(SDL_struct->surface, x, y, *pixel);
-        }
-    }
-    SDL_UnlockSurface(SDL_struct->surface);
-    SDL_UpdateWindowSurface(SDL_struct->my_window);
-    
 }

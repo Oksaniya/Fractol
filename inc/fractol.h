@@ -17,11 +17,14 @@
 
 
 #ifndef MULTITHREAD
-#define PIX_SET() if_no_multithr(&mystruct, *thread_id)
+#define PIX_SET() if_no_multithr(mystruct, thread_id)
 #else
-#define PIX_SET() if_multithr(&mystruct, thread_id)
+#define PIX_SET() if_multithr(mystruct, thread_id)
 #endif
 
+#define CLOCK_START  clock_t begin; begin = clock();
+#define CLOCK_END clock_t end; end = clock(); 
+#define TIME_SPENT double time_spent = (double)(end - begin) / CLOCKS_PER_SEC; printf("time = %f \n", time_spent);
 
 
 enum window_size
@@ -68,12 +71,13 @@ typedef struct      s_mystruct
 
 void set_pixel(SDL_Surface *surface, int x, int y, t_pixel pixel);
 void init(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
-void surface(t_mystruct *mystruct, t_pixel *pixel, t_SDL_struct *SDL_struct);
 void mandelbrot(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void *coord_calc(void *my_s);
 void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct);
 void zoom(int button, int state, int x, int y);
 void if_multithr(t_mystruct *mystruct, pthread_t *thread_id);
-void if_no_multithr(t_mystruct *mystruct, pthread_t thread_id);
+void if_no_multithr(t_mystruct *mystruct, pthread_t *thread_id);
+void fractol_type_ident(char **argv, t_mystruct *mystruct);
+clock_t win_still_and_update(t_mystruct *mystruct);
 
 #endif 

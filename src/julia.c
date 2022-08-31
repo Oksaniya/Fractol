@@ -16,11 +16,9 @@ void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
     i = 0;
     color_scale_f = 0.0f;
 
-    // choose R > 0 such that R**2 - R >= sqrt(cx**2 + cy**2)
-
     x0 = (float)mystruct->Px * ((R + R) / (float)WINDOW_WIDTH) - 2.0f;
     y0 = (float)mystruct->Py * ((R + R) / (float)WINDOW_HEIGHT) - 1.12f;
-   // printf("Mouse pos x = %d, \n", mystruct->mouse_x);
+    
     if (((R * R - R) * (R * R - R) < x * x + y * y) || (R < 0))
     {
         printf("Please, choose another value of R in julia.c. It should be not %f \n", R);
@@ -40,34 +38,10 @@ void julia(t_mystruct *mystruct, t_SDL_struct *SDL_struct)
         p.channel[RED] = color_scale + 0;
         p.channel[GREEN] = color_scale + 10;
         p.channel[BLUE] = color_scale + 60;
-        //p.color = (uint32_t)((float)0xffffffff * (((float)i / (float)MAX_ITER)));
     }
     else
     {
         p.color = 0x00000000;
     }
-    // color_scale_f = (float)i / (float)MAX_ITER;
-    // if (color_scale_f < 0.33f)
-    // {
-    //     p.channel[RED] = color_scale_f * 255.f + 20;
-    //     p.channel[GREEN] = 0;
-    //     p.channel[BLUE] = 0;
-    // }
-    // else if ((color_scale_f >= 0.33f) && (color_scale_f < 0.66f))
-    // {
-    //     p.channel[RED] = color_scale_f * 255.f + 30;
-    //     p.channel[GREEN] = color_scale_f * 255.f + 40;
-    //     p.channel[BLUE] = 0;
-    // }
-    // else if ((color_scale_f >= 0.66f) && (color_scale_f < 1))
-    // {
-    //     p.channel[RED] = color_scale_f * 255.f + 50;
-    //     p.channel[GREEN] = color_scale_f * 255.f + 60;
-    //     p.channel[BLUE] = color_scale_f * 255.f + 70;
-    // }
-    // else
-    // {
-    //     p.color = 0x00000000;
-    // }
     set_pixel(SDL_struct->surface, mystruct->Px, mystruct->Py, p);
 }
