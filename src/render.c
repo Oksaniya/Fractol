@@ -10,30 +10,33 @@ void set_pixel(SDL_Surface *surface, int x, int y, t_pixel pixel)
 
 void *coord_calc(void *my_s)
 {
-    int32_t i;
-    int64_t increment;
-    t_mystruct *mystruct;
-    t_SDL_struct SDL_struct;
+    int32_t                 i;
+    int64_t                 increment;
+    t_calculation_values    *s_calculation_values;
+    t_SDL_struct            s_SDL_struct;
 
-    mystruct = (t_mystruct *)my_s;
-    SDL_struct = mystruct->SDL_data;
-    mystruct->Px = 0.0f;
-    mystruct->Py = 0.0f;
-    mystruct = my_s;
-    i = mystruct->iterator * (WINDOW_WIDTH * WINDOW_HEIGHT / mystruct->numCPU);
-    increment = mystruct->numCPU;
-    while (i < mystruct->pix_num)
+    s_calculation_values = (t_calculation_values *)my_s;
+    s_SDL_struct = s_calculation_values->SDL_data;
+    s_calculation_values->Px = 0.0f;
+    s_calculation_values->Py = 0.0f;
+    s_calculation_values = my_s;
+    increment = s_calculation_values->struct_iterators.numCPU;
+
+    i = s_calculation_values->struct_iterators.iterator * 
+        (WINDOW_WIDTH * WINDOW_HEIGHT / s_calculation_values->struct_iterators.numCPU);
+
+    while (i < s_calculation_values->struct_iterators.pix_num)
     {
-        mystruct->Py = i / WINDOW_WIDTH;
-        mystruct->Px = i % WINDOW_WIDTH;
+        s_calculation_values->Py = i / WINDOW_WIDTH;
+        s_calculation_values->Px = i % WINDOW_WIDTH;
 
-        switch (mystruct->fract_change)
+        switch (s_calculation_values->struct_iterators.fract_change)
         {
         case 0:
-            mandelbrot(mystruct, &SDL_struct);
+            mandelbrot(s_calculation_values, &s_SDL_struct);
             break;
         case 1:
-            julia(mystruct, &SDL_struct);
+            julia(s_calculation_values, &s_SDL_struct);
         default:
             break;
         }
@@ -43,32 +46,32 @@ void *coord_calc(void *my_s)
     return NULL;
 }
 
-clock_t win_still_and_update(t_mystruct *mystruct)
+clock_t window_update(t_calculation_values *s_calculation_values)
 {
-    int64_t mouse_x_prev, mouse_y_prev;
-    
-    mouse_x_prev = 0;
-    mouse_y_prev = 0;
+    int64_t         mouse_x_prev, mouse_y_prev;
     pthread_t       *thread_id;
+    
+    mouse_x_prev    =   0;
+    mouse_y_prev    =   0;
 
-    thread_id = (pthread_t *)malloc(sizeof(pthread_t) * mystruct->numCPU);
+
+    thread_id = (pthread_t *)malloc(sizeof(pthread_t) * s_calculation_values->struct_iterators.numCPU);
 
     PIX_SET();
     CLOCK_END;
     while (TRUE)
     {
-        mystruct->Mouse_pos = SDL_GetMouseState(&mystruct->mouse_x, &mystruct->mouse_y);
-        if (mystruct->mouse_x != mouse_x_prev || mystruct->mouse_y != mouse_y_prev)
+        s_calculation_values->Mouse_pos = SDL_GetMouseState(&s_calculation_values->mouse_x, &s_calculation_values->mouse_y);
+        if (s_calculation_values->mouse_x != mouse_x_prev || s_calculation_values->mouse_y != mouse_y_prev)
         {
             PIX_SET();
-
-            SDL_UpdateWindowSurface(mystruct->SDL_data.my_window);
-            mouse_x_prev = mystruct->mouse_x;
-            mouse_y_prev = mystruct->mouse_y;
+            SDL_UpdateWindowSurface(s_calculation_values->SDL_data.my_window);
+            mouse_x_prev = s_calculation_values->mouse_x;
+            mouse_y_prev = s_calculation_values->mouse_y;
         }
-        if (SDL_PollEvent(&(mystruct->SDL_data.window_event)))
+        if (SDL_PollEvent(&(s_calculation_values->SDL_data.window_event)))
         {
-            if (SDL_QUIT == mystruct->SDL_data.window_event.type)
+            if (SDL_QUIT == s_calculation_values->SDL_data.window_event.type)
             {
                 break ;
             }
